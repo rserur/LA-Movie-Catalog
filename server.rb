@@ -61,16 +61,40 @@ end
 
 get '/movies' do
 
- db_connection do |conn|
+  @page = params[:page].to_i
+
+  @order = params[:order].to_s
+
+  if @order == "year"
+
+     db_connection do |conn|
+    @movies = conn.exec('SELECT movies.id, movies.title, movies.year, movies.rating,
+      genres.name, studios.name FROM movies JOIN genres ON genres.id = movies.genre_id
+      JOIN studios ON studios.id = movies.studio_id ORDER BY movies.year ASC')
+    @movies = @movies.values
+    end
+
+  elsif @order == "rating"
+
+   db_connection do |conn|
+      @movies = conn.exec('SELECT movies.id, movies.title, movies.year, movies.rating,
+        genres.name, studios.name FROM movies JOIN genres ON genres.id = movies.genre_id
+        JOIN studios ON studios.id = movies.studio_id WHERE movies.rating IS NOT NULL
+        ORDER BY movies.rating DESC')
+      @movies = @movies.values
+    end
+  else
+
+     db_connection do |conn|
     @movies = conn.exec('SELECT movies.id, movies.title, movies.year, movies.rating,
       genres.name, studios.name FROM movies JOIN genres ON genres.id = movies.genre_id
       JOIN studios ON studios.id = movies.studio_id')
     @movies = @movies.values
+    end
+
   end
 
   @movies = @movies.to_a
-
-  @page = params[:page].to_i
 
   index = @page.to_i * 20
   @movies = @movies.slice(index,20)

@@ -10,6 +10,7 @@
 
 <header>
   <h1><a href="/movies">The Movie Index</a></h1>
+  <div class="nav"><a href="movies?order=rating">Sort By Rating</a> | <a href="movies?order=year">Sort By Year</a></div>
 </header>
 
 <ul>
@@ -18,8 +19,5 @@
       <a href="<%= url("movies/#{movie[0]}") %>"><%= movie[1] %> (<%= movie[2] %>)</a>: <strong><%= movie[3] %>% - <%= movie[4] %></strong> <span class="studio"><%= movie[5] %></span></li>
   <% end %>
 </ul>
-
-  <div class="nav"><a href="<%= url("movies?page=#{@page - 1}") %>">Previous 20</a> |
-  <a href="<%= url("movies?page=#{@page + 1}") %>">Next 20</a></div>
 </body>
 </html>
