@@ -14,7 +14,7 @@ header {
 }
 
 h1, h1 a {
-  font-family: 'Limelight', cursive;
+  font-family: 'Limelight', serif;
   letter-spacing: .025em;
   text-transform: uppercase;
   color: #000000;
@@ -35,19 +35,43 @@ ul {
 }
 
 li {
-  margin: .25em 0;
+  margin: .5em 0;
   font-size: 105%;
 }
-
 .nav {
-  margin-top: 2em;
+  font-size: 65%;
 }
-
 .actor-info {
   list-style: none;
   margin-left: -.15em;
 }
 
+.movie-info {
+  float: left;
+  width: 40%;
+  font-size: 2em;
+}
+
+.movie-info ul {
+  margin-left: .1em;
+  list-style: none;
+}
+
+.cast {
+  float: left;
+  width: 40%;
+  margin-top: 1em;
+}
+
+.cast h3 {
+  border-bottom: 1px solid black;
+}
+
 .label {
   font-weight: bold;
+}
+
+.studio {
+  font-style: italic;
+  font-size: .75em;
 }

@@ -14,8 +14,8 @@
 
 <ul>
   <% @movies.each do |movie| %>
-    <li><a href="<%= url("movies/#{movie[0]}") %>"><%= movie[1] %> (<%= movie[2] %>)</a>: <strong><%= movie[3] %>% - <%= movie[4] %></strong></li>
-    </li><em><%= movie[5] %></em></li>
+    <li>
+      <a href="<%= url("movies/#{movie[0]}") %>"><%= movie[1] %> (<%= movie[2] %>)</a>: <strong><%= movie[3] %>% - <%= movie[4] %></strong> <span class="studio"><%= movie[5] %></span></li>
   <% end %>
 </ul>
 
