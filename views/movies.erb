@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Index</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Limelight' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1><a href="/movies">The Movie Index</a></h1>
+</header>
+
+<ul>
+  <% @movies.each do |movie| %>
+    <li><a href="<%= url("movies/#{movie[0]}") %>"><%= movie[1] %> (<%= movie[2] %>)</a>: <strong><%= movie[3] %>% - <%= movie[4] %></strong></li>
+    </li><em><%= movie[5] %></em></li>
+  <% end %>
+</ul>
+
+  <div class="nav"><a href="<%= url("movies?page=#{@page - 1}") %>">Previous 20</a> |
+  <a href="<%= url("movies?page=#{@page + 1}") %>">Next 20</a></div>
+</body>
+</html>

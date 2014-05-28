@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Movie Catalog: Actors</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Limelight' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1><a href="/movies">The Movie Catalog: Actors</a></h1>
+</header>
+
+<ul>
+
+  <% @actors %>
+  <% @actors.each do |actor| %>
+    <li><a href="<%= url("actors/#{actor[0]}") %>"><%= actor[1] %></a></li>
+  <% end %>
+</ul>
+
+<div class="nav"><a href="<%= url("actors?page=#{@page - 1}") %>">Previous 20</a> |
+  <a href="<%= url("actors?page=#{@page + 1}") %>">Next 20</a></div>
+
+</body>
+</html>
