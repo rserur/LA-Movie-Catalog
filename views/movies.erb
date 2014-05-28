@@ -9,8 +9,21 @@
 <body>
 
 <header>
-  <h1><a href="/movies">The Movie Index</a></h1>
-  <div class="nav"><a href="movies?order=rating">Sort By Rating</a> | <a href="movies?order=year">Sort By Year</a></div>
+  <h1><a href="/movies">The Movie Catalog</a></h1>
+  <div class="nav">
+
+  <% if @order == "year" %>
+    <a href="<%= url("movies?order=year&page=#{@page - 1}") %>">Previous 20</a> |
+    <a href="<%= url("movies?order=year&page=#{@page + 1}") %>">Next 20</a> |
+  <% elsif @order == "rating" %>
+    <a href="<%= url("movies?order=rating&page=#{@page - 1}") %>">Previous 20</a> |
+    <a href="<%= url("movies?order=rating&page=#{@page + 1}") %>">Next 20</a> |
+  <% else %>
+    <a href="<%= url("movies?page=#{@page - 1}") %>">Previous 20</a> |
+    <a href="<%= url("movies?page=#{@page + 1}") %>">Next 20</a> |
+  <% end %>
+
+  <a href="<%= url("movies?order=rating&page=#{@page}") %>">Sort By Rating</a> | <a href="<%= url("movies?order=year&page=#{@page}") %>">Sort By Year</a></div>
 </header>
 
 <ul>
