@@ -108,7 +108,7 @@ get '/movies' do
 
     @movies = conn.exec('SELECT movies.id, movies.title, movies.year, movies.rating,
       genres.name, studios.name, movies.synopsis FROM movies JOIN genres ON genres.id = movies.genre_id
-      JOIN studios ON studios.id = movies.studio_id LIMIT 20 OFFSET $1', [@page * 20])
+      JOIN studios ON studios.id = movies.studio_id ORDER BY movies.title ASC LIMIT 20 OFFSET $1', [@page * 20])
     @movies = @movies.values
 
     end
