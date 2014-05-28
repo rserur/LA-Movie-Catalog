@@ -8,30 +8,32 @@
 </head>
 <body>
 
-<header>
-  <h1><a href="/movies">The Movie Catalog</a></h1>
-</header>
+  <header>
+    <h1><a href="/movies">The Movie Catalog</a></h1>
+  </header>
 
-<div class="movie-info">
-<h2><%= @movie[0][1] %></h2>
-<ul>
-    <li><strong>Year:</strong> <%= @movie[0][2] %></li>
-    <li><strong>Rating:</strong> <%= @movie[0][3] %>%</li>
-    <li><strong>Genre:</strong> <%= @movie[0][4] %></li>
-    <li><strong>Studio:</strong> <%= @movie[0][5] %></li>
-</ul>
-<div class="nav"><a href="javascript:history.back()">Back</a></div>
-</div>
-<div class="cast">
+  <div class="movie-info">
+    <h2><%= @movie[0][1] %></h2>
+    <ul>
+        <li><strong>Year:</strong> <%= @movie[0][2] %></li>
+        <li><strong>Rating:</strong> <%= @movie[0][3] %>%</li>
+        <li><strong>Genre:</strong> <%= @movie[0][4] %></li>
+        <li><strong>Studio:</strong> <%= @movie[0][5] %></li>
+    </ul>
+    <div class="nav"><a href="javascript:history.back()">Back</a></div>
+  </div>
 
-  <h3>Cast</h3>
+  <div class="cast">
 
-  <ul>
-  <% @roles.each do |role| %>
-      <li><strong><a href="<%= url("actors/#{role[2]}") %>"><%= role[0] %></a></strong> . . . <%= role[1] %></li>
-  <% end %>
-  </ul>
+    <h3>Cast</h3>
 
-</div>
+    <ul>
+    <% @roles.each do |role| %>
+        <li><strong><a href="<%= url("actors/#{role[2]}") %>"><%= role[0] %></a></strong> . . . <%= role[1] %></li>
+    <% end %>
+    </ul>
+
+  </div>
+
 </body>
 </html>

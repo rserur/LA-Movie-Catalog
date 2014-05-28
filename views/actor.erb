@@ -8,24 +8,24 @@
 </head>
 <body>
 
-<header>
-  <h1><a href="/movies">The Movie Catalog</a></h1>
-</header>
+  <header>
+    <h1><a href="/movies">The Movie Catalog</a></h1>
+  </header>
 
-<div class="actor-info">
-    <img src="/../../actor.png" width="300px">
-    <h2><%= @roles[0][0] %></h2>
-    <div class="nav"><a href="javascript:history.back()">Back</a></div>
-</div>
+  <div class="actor-info">
+      <img src="/../../actor.png" width="300px">
+      <h2><%= @roles[0][0] %></h2>
+      <div class="nav"><a href="javascript:history.back()">Back</a></div>
+  </div>
 
-<div class="cast">
-<h3>Roles</h3>
-<ul>
-<% @roles.each do |role| %>
-      <li><a href="<%= url("movies/#{role[3]}") %>"><%= role[1] %></a> . . . <%= role[2] %></li>
-    <% end %>
+  <div class="cast">
+    <h3>Roles</h3>
+    <ul>
+      <% @roles.each do |role| %>
+        <li><a href="<%= url("movies/#{role[3]}") %>"><%= role[1] %></a> . . . <%= role[2] %></li>
+      <% end %>
     </ul>
-</div>
+  </div>
 
 </body>
 </html>
