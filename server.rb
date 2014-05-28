@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'pg'
-require 'pry'
 
 def db_connection
   begin
@@ -23,17 +22,29 @@ end
 
 get '/actors' do
 
-  db_connection do |conn|
-    @actors = conn.exec('SELECT id, name FROM actors ORDER BY name')
-    @actors = @actors.values
-  end
-
-  @actors = @actors.to_a
-
   @page = params[:page].to_i
 
-  index = @page.to_i * 20
-  @actors = @actors.slice(index,20)
+  @search_term = params[:query]
+
+  if @search_term != nil
+
+    db_connection do |conn|
+
+     @actors = conn.exec("SELECT actors.id, actors.name, cast_members.character FROM actors JOIN cast_members ON cast_members.actor_id = actors.id WHERE
+      actors.name ILIKE '%#{@search_term.to_s}%' OR cast_members.character ILIKE '%#{@search_term.to_s}%'")
+     @actors = @actors.values
+    end
+
+  else
+
+      db_connection do |conn|
+    @actors = conn.exec('SELECT actors.id, actors.name, COUNT(cast_members.actor_id) AS MovieCount FROM cast_members
+      JOIN actors ON cast_members.actor_id = actors.id GROUP BY actors.name, actors.id ORDER BY actors.name
+      ASC LIMIT 20 OFFSET $1', [@page * 20])
+    @actors = @actors.values
+      end
+
+  end
 
   erb :actors
 
@@ -44,11 +55,13 @@ get '/actors/:id' do
   @query = params[:id]
 
    db_connection do |conn|
-    @roles = conn.exec('SELECT actors.name, movies.title, cast_members.character
+
+    @roles = conn.exec('SELECT actors.name, movies.title, cast_members.character, movies.id
       FROM actors JOIN cast_members ON actors.id = cast_members.actor_id JOIN movies ON
       cast_members.movie_id = movies.id WHERE actors.id = $1', [@query])
 
     @roles = @roles.values
+
   end
 
   @roles = @roles.to_a
@@ -62,6 +75,8 @@ get '/movies' do
   @page = params[:page].to_i
 
   @order = params[:order].to_s
+
+  @search_term = params[:query]
 
   if @order == "year"
 
@@ -92,11 +107,28 @@ get '/movies' do
      db_connection do |conn|
 
     @movies = conn.exec('SELECT movies.id, movies.title, movies.year, movies.rating,
-      genres.name, studios.name FROM movies JOIN genres ON genres.id = movies.genre_id
+      genres.name, studios.name, movies.synopsis FROM movies JOIN genres ON genres.id = movies.genre_id
       JOIN studios ON studios.id = movies.studio_id LIMIT 20 OFFSET $1', [@page * 20])
     @movies = @movies.values
 
     end
+
+  end
+
+
+
+  if @search_term != nil
+
+    db_connection do |conn|
+
+      @movies = conn.exec("SELECT movies.id, movies.title, movies.year, movies.rating,
+      genres.name, studios.name, movies.synopsis FROM movies JOIN genres ON genres.id = movies.genre_id
+      JOIN studios ON studios.id = movies.studio_id WHERE movies.title ILIKE '%#{@search_term.to_s}%' OR movies.synopsis ILIKE '%#{@search_term.to_s}%'")
+    @movies = @movies.values
+
+    end
+
+    erb :movies
 
   end
 
@@ -119,7 +151,7 @@ get '/movies/:id' do
   end
 
     db_connection do |conn|
-    @roles = conn.exec('SELECT actors.name, cast_members.character
+    @roles = conn.exec('SELECT actors.name, cast_members.character, actors.id
       FROM actors JOIN cast_members ON actors.id = cast_members.actor_id JOIN movies ON
       cast_members.movie_id = movies.id WHERE movies.id = $1', [@query])
 

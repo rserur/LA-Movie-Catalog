@@ -9,19 +9,35 @@
 <body>
 
 <header>
-  <h1><a href="/movies">The Movie Catalog: Actors</a></h1>
+  <h1><a href="/actors">The Movie Catalog: Actors</a></h1>
+  <h2>
+    <form action="/actors" method="get">
+      <input type="text" name="query" id="query" />
+      <input type="submit" value="Search" />
+    </form>
+  </h2>
+  <div class="nav">
+    <a href="<%= url("actors?page=#{@page - 1}") %>">Previous 20</a> |
+    <a href="<%= url("actors?page=#{@page + 1}") %>">Next 20</a> |
+    <a href="/movies">Movies List</a>
+  </div>
 </header>
 
 <ul>
 
   <% @actors %>
   <% @actors.each do |actor| %>
-    <li><a href="<%= url("actors/#{actor[0]}") %>"><%= actor[1] %></a></li>
+    <li><a href="<%= url("actors/#{actor[0]}") %>"><%= actor[1] %></a>
+
+    <% if @search_term %>
+      as <%= actor[2] %>
+    <% else %>
+      <small>- <%= actor[2] %> movie(s)</small>
+    <% end %>
+
+    </li>
   <% end %>
 </ul>
-
-<div class="nav"><a href="<%= url("actors?page=#{@page - 1}") %>">Previous 20</a> |
-  <a href="<%= url("actors?page=#{@page + 1}") %>">Next 20</a></div>
 
 </body>
 </html>

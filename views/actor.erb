@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Movie Index</title>
+  <title>The Movie Catalog</title>
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Limelight' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
 
 <header>
-  <h1>The Movie Index</h1>
-  <h2><%= @roles[0][0] %></h2>
+  <h1><a href="/movies">The Movie Catalog</a></h1>
 </header>
 
-<ul class="actor-info">
-    <% @roles.each do |role| %>
-      <li><span class="label">Movie:</span> <%= role[1] %></li>
-      <li><span class="label">Role:</span> <%= role[2] %></li>
-    <% end %>
-</ul>
+<div class="actor-info">
+    <img src="/../../actor.png" width="300px">
+    <h2><%= @roles[0][0] %></h2>
+    <div class="nav"><a href="javascript:history.back()">Back</a></div>
+</div>
 
-<div class="nav"><a href="javascript:history.back()">Back</a></div>
+<div class="cast">
+<h3>Roles</h3>
+<ul>
+<% @roles.each do |role| %>
+      <li><a href="<%= url("movies/#{role[3]}") %>"><%= role[1] %></a> . . . <%= role[2] %></li>
+    <% end %>
+    </ul>
+</div>
+
 </body>
 </html>

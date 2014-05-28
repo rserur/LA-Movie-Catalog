@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Movie Index</title>
+  <title>The Movie Catalog</title>
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Limelight' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -10,6 +10,12 @@
 
 <header>
   <h1><a href="/movies">The Movie Catalog</a></h1>
+  <h2>
+    <form action="/movies" method="get">
+      <input type="text" name="query" id="query" />
+      <input type="submit" value="Search" />
+    </form>
+  </h2>
   <div class="nav">
 
   <% if @order == "year" %>
@@ -23,7 +29,10 @@
     <a href="<%= url("movies?page=#{@page + 1}") %>">Next 20</a> |
   <% end %>
 
-  <a href="<%= url("movies?order=rating&page=#{@page}") %>">Sort By Rating</a> | <a href="<%= url("movies?order=year&page=#{@page}") %>">Sort By Year</a></div>
+  <a href="<%= url("movies?order=rating&page=#{@page}") %>">Sort By Rating</a> | <a href="<%= url("movies?order=year&page=#{@page}") %>">Sort By Year</a>
+
+  | <a href="/actors">Actors List</a>
+  </div>
 </header>
 
 <ul>
