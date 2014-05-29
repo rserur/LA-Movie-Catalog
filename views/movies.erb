@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>The Movie Catalog</title>
-  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Limelight' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Oswald:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,21 +20,6 @@
 
     </h2>
 
-    <div class="nav">
-      <% if @order == "year" %>
-        <a href="<%= url("movies?order=year&page=#{@page - 1}") %>">Previous 20</a> |
-        <a href="<%= url("movies?order=year&page=#{@page + 1}") %>">Next 20</a> |
-      <% elsif @order == "rating" %>
-        <a href="<%= url("movies?order=rating&page=#{@page - 1}") %>">Previous 20</a> |
-        <a href="<%= url("movies?order=rating&page=#{@page + 1}") %>">Next 20</a> |
-      <% else %>
-        <a href="<%= url("movies?page=#{@page - 1}") %>">Previous 20</a> |
-        <a href="<%= url("movies?page=#{@page + 1}") %>">Next 20</a> |
-      <% end %>
-
-      <a href="<%= url("movies?order=rating&page=#{@page}") %>">Sort By Rating</a> | <a href="<%= url("movies?order=year&page=#{@page}") %>">Sort By Year</a>| <a href="/actors">Actors List</a>
-    </div>
-
   </header>
 
   <ul>
@@ -42,6 +27,21 @@
       <li><a href="<%= url("movies/#{movie[0]}") %>"><%= movie[1] %> (<%= movie[2] %>)</a>: <strong><%= movie[3] %>% - <%= movie[4] %></strong> <span class="studio"><%= movie[5] %></span></li>
     <% end %>
   </ul>
+
+  <div class="nav">
+      <% if @order == "year" %>
+        <a href="<%= url("movies?order=year&page=#{@page - 1}") %>">Previous 20</a> |
+        <a href="<%= url("movies?order=year&page=#{@page + 1}") %>">Next 20</a> --
+      <% elsif @order == "rating" %>
+        <a href="<%= url("movies?order=rating&page=#{@page - 1}") %>">Previous 20</a> |
+        <a href="<%= url("movies?order=rating&page=#{@page + 1}") %>">Next 20</a> --
+      <% else %>
+        <a href="<%= url("movies?page=#{@page - 1}") %>">Prev 20</a> |
+        <a href="<%= url("movies?page=#{@page + 1}") %>">Next 20</a> --
+      <% end %>
+
+      <a href="<%= url("movies?order=rating&page=#{@page}") %>">Sort By Rating</a> | <a href="<%= url("movies?order=year&page=#{@page}") %>">Sort By Year</a>| <a href="/actors">Actors List</a>
+    </div>
 
 </body>
 </html>

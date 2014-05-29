@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>The Movie Catalog: Actors</title>
-  <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Limelight' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Oswald:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,11 +16,6 @@
         <input type="submit" value="Search" />
       </form>
     </h2>
-    <div class="nav">
-      <a href="<%= url("actors?page=#{@page - 1}") %>">Previous 20</a> |
-      <a href="<%= url("actors?page=#{@page + 1}") %>">Next 20</a> |
-      <a href="/movies">Movies List</a>
-    </div>
   </header>
 
   <ul>
@@ -37,5 +32,10 @@
     <% end %>
   </ul>
 
+  <div class="nav">
+    <a href="<%= url("actors?page=#{@page - 1}") %>">Previous 20</a> |
+    <a href="<%= url("actors?page=#{@page + 1}") %>">Next 20</a> --
+    <a href="/movies">Movies List</a>
+  </div>
 </body>
 </html>
